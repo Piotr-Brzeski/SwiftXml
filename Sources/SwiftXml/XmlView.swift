@@ -7,11 +7,15 @@
 
 import SwiftUI
 
-struct XmlView: View {
-  let xml: XmlNode
+public struct XmlView: View {
+  private let xml: XmlNode
   @State private var subnodesVisible = true
   
-  var body: some View {
+  public init(xml: XmlNode) {
+    self.xml = xml
+  }
+  
+  public var body: some View {
     HStack(alignment: .top, spacing: 0) {
         Image(systemName: self.xml.subnodes.isEmpty ? "circle" : self.subnodesVisible ? "chevron.down.circle" : "chevron.forward.circle")
           .opacity(self.xml.subnodes.isEmpty ? 0.1 : 0.8)
@@ -29,7 +33,7 @@ struct XmlView: View {
     }
   }
   
-  var value: some View {
+  private var value: some View {
     var valueString = self.xml.name
     if let nodeValue = self.xml.value {
       valueString += "=\"" + nodeValue + "\""
@@ -37,7 +41,7 @@ struct XmlView: View {
     return Text(valueString)
   }
   
-  var attributes: some View {
+  private var attributes: some View {
     var attributesString = ""
     for attribute in self.xml.attributes {
       if !attributesString.isEmpty {
@@ -48,7 +52,7 @@ struct XmlView: View {
     return Text(attributesString).multilineTextAlignment(.leading)
   }
   
-  var subnodes: some View {
+  private var subnodes: some View {
     ForEach(self.xml.subnodes.indices, id: \.self) { index in
       XmlView(xml: self.xml.subnodes[index])
     }
