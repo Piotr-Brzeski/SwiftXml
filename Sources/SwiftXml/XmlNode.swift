@@ -19,14 +19,18 @@ public struct XmlNode {
   public var value: String?
   public var subnodes = [XmlNode]()
   
-  public private(set) var name: String
+  private var _name: String
   private var _attributes = [String:String]()
   
   public init(_ name: String) throws {
     guard XmlNode.validate(name: name) else {
       throw XmlError.invalidNodeName
     }
-    self.name = name
+    self._name = name
+  }
+  
+  public var name: String {
+    self._name
   }
   
   public mutating func set(attribute: String, value: String) throws {
