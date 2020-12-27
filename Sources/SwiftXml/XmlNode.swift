@@ -19,7 +19,7 @@ public struct XmlNode {
   public var value: String?
   public var subnodes = [XmlNode]()
   
-  private(set) var name: String
+  public private(set) var name: String
   private var _attributes = [String:String]()
   
   public init(_ name: String) throws {
