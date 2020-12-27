@@ -48,7 +48,7 @@ public struct XmlNode {
     try set(attribute: attribute, value: value ? "1" : "0")
   }
   
-  mutating func set(attribute: String, value: Date) throws {
+  public mutating func set(attribute: String, value: Date) throws {
     try set(attribute: attribute, value: value.dateString)
   }
   
@@ -98,7 +98,7 @@ public struct XmlNode {
     }
   }
   
-  func date(fromAttribute name: String) throws -> Date {
+  public func date(fromAttribute name: String) throws -> Date {
     guard let dateString = self.attributes[name] else {
       throw XmlError.invalidStructure
     }
