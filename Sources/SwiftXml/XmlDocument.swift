@@ -8,23 +8,23 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct XmlDocument: FileDocument {
-  static let contentType = UTType.xml
-  static let readableContentTypes = [contentType]
+public struct XmlDocument: FileDocument {
+  public static let contentType = UTType.xml
+  public static let readableContentTypes = [contentType]
   let xml: XmlNode
   
-  init(xml: XmlNode) {
+  public init(xml: XmlNode) {
     self.xml = xml
   }
   
-  init(configuration: ReadConfiguration) throws {
+  public init(configuration: ReadConfiguration) throws {
     guard let data = configuration.file.regularFileContents else {
       throw XmlError.parserError(message: "Can not get file data")
     }
     try self.xml = XmlLoader().load(data: data)
   }
   
-  func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+  public func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
     guard let data = xml.asXmlString.data(using: .utf8) else {
       throw XmlError.parserError(message: "Can not get XML data")
     }
