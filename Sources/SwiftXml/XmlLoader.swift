@@ -80,10 +80,16 @@ public class XmlLoader: NSObject, XMLParserDelegate {
     return try self.parse(parser: parser)
   }
   
-  public func load(string: String) throws -> XmlNode {
-    let data: Data = string.data(using: .utf8)!
+  public func load(data: Data) throws -> XmlNode {
     let parser = XMLParser(data: data)
     return try self.parse(parser: parser)
+  }
+  
+  public func load(string: String) throws -> XmlNode {
+    if let data = string.data(using: .utf8) {
+      return try load(data: data)
+    }
+    throw XmlError.parserError(message: "Can not load XML from string")
   }
   
   private func parse(parser: XMLParser) throws -> XmlNode {

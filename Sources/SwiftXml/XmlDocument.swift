@@ -21,11 +21,7 @@ struct XmlDocument: FileDocument {
     guard let data = configuration.file.regularFileContents else {
       throw XmlError.parserError(message: "Can not get file data")
     }
-    // TODO: XmlLoader.load(data)
-    guard let string = String(data: data, encoding: .utf8) else {
-      throw XmlError.parserError(message: "Can not get file data")
-    }
-    try self.xml = XmlLoader().load(string: string)
+    try self.xml = XmlLoader().load(data: data)
   }
   
   func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
